@@ -1,13 +1,10 @@
 package com.kevvlvl.demo.camel.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +13,7 @@ import javax.persistence.Id;
 public class Client {
 
     @Id
+    @GeneratedValue
     private int clientId;
 
     @Column

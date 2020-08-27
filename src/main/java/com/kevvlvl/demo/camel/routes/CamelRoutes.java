@@ -17,8 +17,9 @@ public class CamelRoutes extends RouteBuilder {
 
         rest()
                 .get("/health").to("direct:getHealth")
-                .get("/clients/{id}").to("direct:getClientById")
-                .consumes("application/json").produces("application/json").post("/clients").to("direct:postNewClient");
+                .produces("application/json").get("/clients/{id}").to("direct:getClientById")
+                .consumes("application/json").produces("application/json").post("/clients").to("direct:postNewClient")
+                .consumes("application/json").produces("application/json").put("/clients/{id}").to("direct:putClient");
 
         from("direct:getHealth")
                 .log(LoggingLevel.INFO, "API getHealth")
@@ -26,16 +27,29 @@ public class CamelRoutes extends RouteBuilder {
                 .simple("Hello There!");
 
         from("direct:postNewClient")
-                .unmarshal().json(JsonLibrary.Jackson, ClientDto.class)
+                .to("direct:clientJsonToPojo")
                 .bean(ClientServiceImpl.class, "createClient(${body})")
-                .log(LoggingLevel.INFO, "Created Client with ID=${body}");
+                .log(LoggingLevel.INFO, "API postNewClient - Created Client with ID=${body}");
 
         from("direct:getClientById")
                 .log(LoggingLevel.INFO, "API getClientById - Received query string=${header.id}")
                 .bean(ClientServiceImpl.class, "getByClientId(${header.id})")
                 .choice()
                     .when(body().isNull()).setBody(simple("Client not found"))
-                    .otherwise().marshal().json(JsonLibrary.Jackson)
+                    .otherwise().to("direct:clientPojoToJson")
                 .end();
+
+        from("direct:putClient")
+                .to("direct:clientJsonToPojo")
+                .bean(ClientServiceImpl.class, "updateClient(${header.id}, ${body})")
+                .log(LoggingLevel.INFO, "API putClient - Updated client with ID=${header.id}");
+
+        // convert a JSON to POJO
+        from("direct:clientJsonToPojo")
+                .unmarshal().json(JsonLibrary.Jackson, ClientDto.class);
+
+        // convert a POJO to JSON
+        from("direct:clientPojoToJson")
+                .marshal().json(JsonLibrary.Jackson);
     }
 }

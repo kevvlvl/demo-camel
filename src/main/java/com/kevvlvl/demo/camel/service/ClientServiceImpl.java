@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,27 +37,22 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> getByFirstName(String firstName) {
+    public Client createClient(ClientDto clientDto) {
 
-        log.info("getByFirstName - Fetch Client with firstName {}", firstName);
-        List<Client> clients = this.clientRepository.findByFirstName(firstName);
+        log.info("createClient - clientDto = {}", clientDto);
 
-        if(clients != null) {
-            log.info("getByFirstName - Found {} clients", clients.size());
-        }
-        else {
-            log.warn("getByFirstName - Found zero clients.");
-        }
-
-        return clients;
+        Client c = new Client(clientDto.getFirstName(), clientDto.getLastName());
+        return this.clientRepository.save(c);
     }
 
     @Override
-    public Client createClient(ClientDto clientDto) {
+    public Client updateClient(int id, ClientDto clientDto) {
 
-        log.info("createClient - clientDto", clientDto);
+        log.info("updateClient - client ID = {}, clientDto = {}", id, clientDto);
 
         Client c = new Client(clientDto.getFirstName(), clientDto.getLastName());
+        c.setClientId(id);
+
         return this.clientRepository.save(c);
     }
 }

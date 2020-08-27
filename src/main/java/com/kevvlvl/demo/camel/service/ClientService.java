@@ -8,6 +8,6 @@ import java.util.List;
 public interface ClientService {
 
     public Client getByClientId(int id);
-    public List<Client> getByFirstName(String firstName);
     public Client createClient(ClientDto clientDto);
+    public Client updateClient(int id, ClientDto clientDto);
 }
