@@ -67,6 +67,13 @@
             <version>${camel-version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.camel/camel-swagger-java -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-swagger-java</artifactId>
+            <version>${camel-version}</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
         <dependency>
             <groupId>com.h2database</groupId>
