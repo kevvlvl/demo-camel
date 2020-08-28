@@ -1,4 +1,4 @@
-package com.kevvlvl.demo.camel;
+package com.kevvlvl.demo.camel.config;
 
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
