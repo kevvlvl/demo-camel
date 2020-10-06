@@ -14,8 +14,13 @@ by kevvlvl
 
 ### Swagger API
 
-* curl http://localhost:8080/api/api-doc/swagger.json
-* curl http://localhost:8080/api/api-doc/swagger.yaml
+* curl http://localhost:8090/api/api-doc/swagger.json
+* curl http://localhost:8090/api/api-doc/swagger.yaml
+
+### Actuator
+
+* curl http://localhost:8090/actuator/health returns the health status of the app
+* curl http://localhost:8090/actuator/loggers returns the loggers which you can manage (changing their log level)
 
 ### API
 - GET api/health for custom API health check

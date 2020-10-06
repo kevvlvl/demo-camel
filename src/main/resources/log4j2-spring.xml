@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss} %p %c{1}: %m%n
+        </Property>
+    </Properties>
+    <Appenders>
+
+        <RollingFile
+            name="rollingFileAppender"
+            fileName="target/logs/app.log"
+            filePattern="target/logs/app.%i.log"
+            ignoreExceptions="false">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+        </RollingFile>
+
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+
+        <Logger name="com.kevvlvl.demo.camel" level="debug" additivity="false">
+            <AppenderRef ref="rollingFileAppender" />
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="ConsoleAppender" />
+        </Root>
+    </Loggers>
+</Configuration>
