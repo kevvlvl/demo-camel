@@ -10,15 +10,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 @DynamicUpdate
 @Entity
+@Table(name = "Client_Task")
 public class ClientTask {
 
     @Id
     @GeneratedValue
+    @Column(name = "taskId")
     private int taskId;
 
-    @Column
+    @Column(name = "taskDescription", nullable = false, length = 255)
     private String taskDescription;
 
-    @Column
-    private int clientId;
+    @ManyToOne
+    @JoinColumn(name = "clientId")
+    private Client client;
 }

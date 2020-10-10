@@ -12,6 +12,10 @@ by kevvlvl
 
 ## Endpoints
 
+### H2 Database Console
+
+* Open in browser http://localhost:8090/h2-console/
+
 ### Swagger API
 
 * curl http://localhost:8090/api/api-doc/swagger.json
@@ -24,10 +28,14 @@ by kevvlvl
 
 ### API
 - GET api/health for custom API health check
-  - Ex: curl localhost:8080/api/health
+  - Ex: curl localhost:8090/api/health
 - POST api/clients to create a client
-  - Ex: curl -X POST -H "Content-Type: application/json" localhost:8080/api/clients -d '{"firstName": "Austin", "lastName": "Powars"}'
+  - Ex: curl -X POST -H "Content-Type: application/json" localhost:8090/api/clients -d '{"firstName": "Austin", "lastName": "Powars"}'
 - GET api/clients/{clientId} to get a client
-  - Ex: curl localhost:8080/api/clients/0 (Client ID)
+  - Ex: curl localhost:8090/api/clients/0 (Client ID)
 - PUT api/clients{clientId} to update a Client
-  - Ex: curl -X PUT -H "Content-Type: application/json" localhost:8080/api/clients/0 -d '{"firstName": "Austin", "lastName": "Powarzz"}'
+  - Ex: curl -X PUT -H "Content-Type: application/json" localhost:8090/api/clients/0 -d '{"firstName": "Austin", "lastName": "Powarzz"}'
+- POST api/client-tasks to create a client task
+  - Ex: curl -X POST -H "Content-Type: application/json" localhost:8090/api/client-tasks -d '{"taskDescription": "Run batch job once a day", "clientId": "1"}'
+- GET api/client-tasks/{clientId} to obtain list of client tasks
+  - Ex:  curl -X GET -H "Content-Type: application/json" localhost:8090/api/client-tasks?clientId=1

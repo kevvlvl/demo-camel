@@ -14,12 +14,13 @@ public class Client {
 
     @Id
     @GeneratedValue
+    @Column(name = "clientId")
     private int clientId;
 
-    @Column
+    @Column(name = "firstName", nullable = false, length = 100)
     private String firstName;
 
-    @Column
+    @Column(name = "lastName", nullable = false, length = 100)
     private String lastName;
 
     public Client(String firstName, String lastName) {
